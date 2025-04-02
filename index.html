@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Đang chuyển hướng...</title>
+  <script>
+    // Lấy tham số từ URL
+    const url = new URL(window.location.href);
+    const scheme = url.searchParams.get("scheme") || "mbbank";  // mặc định mbbank
+    const action = url.searchParams.get("action") || "qrpayment";  // tùy ngân hàng
+    const data = url.searchParams.get("data");
+
+    if (scheme && data) {
+      const deeplink = `${scheme}://${action}?data=${data}`;
+      window.location.href = deeplink;
+    }
+  </script>
+</head>
+<body>
+  <p>Nếu bạn không được chuyển hướng, vui lòng <a id="fallback" href="#">bấm vào đây</a>.</p>
+  <script>
+    const fallback = document.getElementById("fallback");
+    const scheme = new URL(window.location.href).searchParams.get("scheme") || "mbbank";
+    const action = new URL(window.location.href).searchParams.get("action") || "qrpayment";
+    const data = new URL(window.location.href).searchParams.get("data");
+    fallback.href = `${scheme}://${action}?data=${data}`;
+  </script>
+</body>
+</html>
